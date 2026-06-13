@@ -31,7 +31,7 @@ jobs:
             -t ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-cicd:${{ github.sha }} \
             .
 
-      # Step 5 - Push Image
+      # Step 5 - Push Image To Docker Hub
       - name: Push Docker Image (latest)
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-cicd:latest
 
