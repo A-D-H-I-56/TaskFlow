@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="animate-fade-in">
 
   <!-- Header & Navigation -->
@@ -28,8 +30,6 @@
       </nav>
     </div>
   </header>
-
-  <!-- Main Content Area -->
   <main>
     <!-- Welcome Header -->
     <div class="dashboard-header">
@@ -128,7 +128,7 @@
     // Calculate and update stats on dashboard
     function updateStats() {
       const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-      
+
       const total = tasks.length;
       const pending = tasks.filter(t => t.status === 'pending').length;
       const completed = tasks.filter(t => t.status === 'completed').length;
@@ -148,4 +148,5 @@
     lucide.createIcons();
   </script>
 </body>
+
 </html>
