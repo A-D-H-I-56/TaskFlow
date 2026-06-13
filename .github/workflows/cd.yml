@@ -1,0 +1,29 @@
+name: CD Pipeline - Deploy to Render
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy Containerized Application
+    runs-on: ubuntu-latest
+    
+    # Step 2 – Declare Environment
+    environment: development
+
+    steps:
+      # Step 1 – Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 3 – Deploy
+      - name: Deploy to Render Web Service
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+
+      # Step 4 – Confirm
+      - name: Output Deployment Confirmation
+        run: |
+          echo "Deployment webhook successfully triggered at $(date)"
