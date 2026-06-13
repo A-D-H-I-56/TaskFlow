@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow | Premium Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="animate-fade-in">
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i data-lucide="check-square" style="color: #6366f1;"></i>
+        TaskFlow
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="add-task.html">Add Task</a></li>
+          <li><a href="task-list.html">Task List</a></li>
+          <li><a href="task-detail.html">Task Detail</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <!-- Welcome Header -->
+    <div class="dashboard-header">
+      <h1>Welcome back, Team Lead!</h1>
+      <p>Here's an overview of your team's tasks and project progress.</p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <!-- Total Tasks -->
+      <div class="stat-card" style="--accent: #6366f1; --bg-glow: rgba(99, 102, 241, 0.15);">
+        <div class="stat-icon">
+          <i data-lucide="layers"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Total Tasks</h3>
+          <div class="value" id="count-total">0</div>
+        </div>
+      </div>
+
+      <!-- Pending Tasks -->
+      <div class="stat-card" style="--accent: #f59e0b; --bg-glow: rgba(245, 158, 11, 0.15);">
+        <div class="stat-icon">
+          <i data-lucide="clock"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Pending</h3>
+          <div class="value" id="count-pending">0</div>
+        </div>
+      </div>
+
+      <!-- Completed Tasks -->
+      <div class="stat-card" style="--accent: #10b981; --bg-glow: rgba(16, 185, 129, 0.15);">
+        <div class="stat-icon">
+          <i data-lucide="check-circle-2"></i>
+        </div>
+        <div class="stat-info">
+          <h3>Completed</h3>
+          <div class="value" id="count-completed">0</div>
+        </div>
+      </div>
+
+      <!-- High Priority Tasks -->
+      <div class="stat-card" style="--accent: #ef4444; --bg-glow: rgba(239, 68, 68, 0.15);">
+        <div class="stat-icon">
+          <i data-lucide="alert-triangle"></i>
+        </div>
+        <div class="stat-info">
+          <h3>High Priority</h3>
+          <div class="value" id="count-high">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="card quick-actions">
+      <h2>Quick Navigation</h2>
+      <div class="actions-grid">
+        <a href="add-task.html" class="action-card">
+          <h3><i data-lucide="plus-circle"></i> Add Task</h3>
+          <p>Create a new task with custom description, due dates, priority tiers, and statuses.</p>
+        </a>
+        <a href="task-list.html" class="action-card">
+          <h3><i data-lucide="list-todo"></i> View Task List</h3>
+          <p>Browse through the complete list of tasks, filter by pending/completed status.</p>
+        </a>
+        <a href="about.html" class="action-card">
+          <h3><i data-lucide="help-circle"></i> About & Help</h3>
+          <p>Learn more about the TaskFlow application, usage instructions, and the development team.</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 TaskFlow DevOps Team. Built with Premium HTML/CSS/JS containerized on Nginx.</p>
+  </footer>
+
+  <!-- Initialization & Stats Calculation Script -->
+  <script>
+    // Initialize default tasks if local storage is empty
+    function initializeTasks() {
+      const defaultTasks = [
+        { id: '1', title: 'Setup GitHub Repository', description: 'Initialize Git, configure remote, and branch structure.', dueDate: '2026-06-14', priority: 'high', status: 'completed' },
+        { id: '2', title: 'Configure Environment Secrets', description: 'Add Docker Hub and Render deploy hook secrets on GitHub.', dueDate: '2026-06-15', priority: 'medium', status: 'pending' },
+        { id: '3', title: 'Build CI/CD Pipelines', description: 'Write ci.yml and cd.yml workflows in .github/workflows/.', dueDate: '2026-06-16', priority: 'high', status: 'pending' },
+        { id: '4', title: 'Implement Dashboard Layout', description: 'Build index.html with summary counts and navigation.', dueDate: '2026-06-14', priority: 'low', status: 'completed' }
+      ];
+
+      if (!localStorage.getItem('tasks')) {
+        localStorage.setItem('tasks', JSON.stringify(defaultTasks));
+      }
+    }
+
+    // Calculate and update stats on dashboard
+    function updateStats() {
+      const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      
+      const total = tasks.length;
+      const pending = tasks.filter(t => t.status === 'pending').length;
+      const completed = tasks.filter(t => t.status === 'completed').length;
+      const high = tasks.filter(t => t.priority === 'high').length;
+
+      document.getElementById('count-total').textContent = total;
+      document.getElementById('count-pending').textContent = pending;
+      document.getElementById('count-completed').textContent = completed;
+      document.getElementById('count-high').textContent = high;
+    }
+
+    // Execute functions
+    initializeTasks();
+    updateStats();
+
+    // Render Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
