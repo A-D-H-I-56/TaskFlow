@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow | Task Detail</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="animate-fade-in">
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i data-lucide="check-square" style="color: #6366f1;"></i>
+        TaskFlow
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="add-task.html">Add Task</a></li>
+          <li><a href="task-list.html">Task List</a></li>
+          <li><a href="task-detail.html" class="active">Task Detail</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <div class="card">
+      <div id="detail-container">
+        <!-- Dynamic detail block -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TaskFlow DevOps Team. Built with Premium HTML/CSS/JS containerized on Nginx.</p>
+  </footer>
+
+  <script>
+    function getTaskId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id');
+    }
+
+    function renderTaskDetails() {
+      const taskId = getTaskId();
+      const container = document.getElementById('detail-container');
+      const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      const task = tasks.find(t => t.id === taskId);
+
+      if (!task) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2rem;">
+            <h3>No Task Selected</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Select a valid task from the task list to view its details.</p>
+            <a href="task-list.html" class="btn btn-primary"><i data-lucide="arrow-left"></i> Back to Task List</a>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="task-detail-grid">
+          <!-- Main Task Info -->
+          <div class="detail-main">
+            <h1 style="margin-bottom: 1rem; font-size: 2.2rem;">${task.title}</h1>
+            <h3 style="color: var(--text-muted); margin-bottom: 1rem; font-weight: 500;">Description</h3>
+            <p style="white-space: pre-wrap; font-size: 1.05rem; margin-bottom: 2rem;">${task.description}</p>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              ${task.status === 'pending' ? `
+                <button onclick="markComplete('${task.id}')" class="btn btn-primary">
+                  <i data-lucide="check-square"></i> Mark as Complete
+                </button>
+              ` : ''}
+              <button onclick="deleteTask('${task.id}')" class="btn btn-danger">
+                <i data-lucide="trash-2"></i> Delete Task
+              </button>
+              <a href="task-list.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left"></i> Back to List
+              </a>
+            </div>
+          </div>
+
+          <!-- Metadata Sidebar -->
+          <div class="detail-meta-card">
+            <div class="meta-item">
+              <span class="meta-label">Task Status</span>
+              <div class="meta-value">
+                <span class="badge badge-${task.status}" style="font-size: 0.9rem; padding: 0.35rem 1rem;">${task.status}</span>
+              </div>
+            </div>
+
+            <div class="meta-item">
+              <span class="meta-label">Due Date</span>
+              <span class="meta-value" style="font-size: 1.1rem;"><i data-lucide="calendar" style="width: 16px; display: inline; vertical-align: text-bottom; margin-right: 0.25rem;"></i> ${task.dueDate}</span>
+            </div>
+
+            <div class="meta-item">
+              <span class="meta-label">Priority</span>
+              <
