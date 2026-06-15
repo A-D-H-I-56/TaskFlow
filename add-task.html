@@ -1,83 +1,117 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>TaskFlow | Add Task</title> <link rel="stylesheet" href="style.css"> <script src="https://unpkg.com/lucide@latest"></script>
-</head> <body class="animate-fade-in"> <!-- Header & Navigation --> <header> <div class="nav-container"> <a href="index.html" class="logo"> <i data-lucide="check-square" style="color: #6366f1;"></i> TaskFlow
-</a> <nav> <ul> <li><a href="index.html">Home</a></li> <li><a href="add-task.html" class="active">Add Task</a></li> <li><a href="task-list.html">Task List</a></li> <li><a href="task-detail.html">Task Detail</a></li> <li><a href="about.html">About</a></li></ul>
-</nav>
-</div>
-</header>
-<!-- Main Content Area -->
-<main>
-<div class="card" style="max-width: 600px; margin: 0 auto;">
-<h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-<i data-lucide="plus-circle" style="color: #6366f1;"></i> Create New Task
-</h2>
-<form id="add-task-form">
-<!-- Task Title -->
-<div class="form-group">
-<label for="task-title">Task Title</label>
-<input type="text" id="task-title" placeholder="e.g. Implement user login flow"
-required>
-</div>
-<!-- Task Description -->
-<div class="form-group">
-<label for="task-desc">Description</label>
-<textarea id="task-desc" placeholder="Detail the requirements and acceptance
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Add Task</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="animate-fade-in"> <!-- Header & Navigation -->
+    <header>
+        <div class="nav-container"> <a href="index.html" class="logo"> <i data-lucide="check-square"
+                    style="color: #6366f1;"></i> TaskFlow
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="add-task.html" class="active">Add Task</a></li>
+                    <li><a href="task-list.html">Task List</a></li>
+                    <li><a href="task-detail.html">Task Detail</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Main Content Area -->
+    <main>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i data-lucide="plus-circle" style="color: #6366f1;"></i> Create New Task
+            </h2>
+            <form id="add-task-form">
+                <!-- Task Title -->
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" placeholder="e.g. Implement user login flow" required>
+                </div>
+                <!-- Task Description -->
+                <div class="form-group">
+                    <label for="task-desc">Description</label>
+                    <textarea id="task-desc" placeholder="Detail the requirements and acceptance
 criteria..." required></textarea>
-</div>
-<!-- Due Date -->
-<div class="form-group">
-<label for="task-date">Due Date</label>
-<input type="date" id="task-date" required></div>
-<!-- Priority (High/Medium/Low Visual Radio) -->
-<div class="form-group">
-<label>Priority Level</label>
-<div class="priority-selector">
-<div class="priority-option">
-<input type="radio" name="priority" id="prio-high" value="high" required>
-<label for="prio-high" class="priority-label high">High</label>
-</div>
-<div class="priority-option">
-<input type="radio" name="priority" id="prio-medium" value="medium"
-checked>
-<label for="prio-medium" class="priority-label medium">Medium</label>
-</div>
-<div class="priority-option">
-<input type="radio" name="priority" id="prio-low" value="low">
-<label for="prio-low" class="priority-label low">Low</label>
-</div>
-</div>
-</div>
-<!-- Submit and Cancel Buttons -->
-<div style="display: flex; gap: 1rem; margin-top: 2rem;">
-<button type="submit" class="btn btn-primary" style="flex: 1;">
-<i data-lucide="save"></i> Save Task
-</button>
-<a href="index.html" class="btn btn-secondary" style="flex: 1;">Cancel</a>
-</div></form>
-</div>
-</main>
-<footer>
-<p>&copy; 2026 TaskFlow DevOps Team. Built with Premium HTML/CSS/JS
-containerized on Nginx.</p>
-</footer>
-<script>
-lucide.createIcons();
-// Set today's date as the minimum date
-const dateInput = document.getElementById('task-date');
-const today = new Date().toISOString().split('T')[0];
-dateInput.min = today;
-// Handle Form Submission
-document.getElementById('add-task-form').addEventListener('submit', function(e) {
-e.preventDefault();
-const title = document.getElementById('task-title').value.trim();
-const description = document.getElementById('task-desc').value.trim();
-const dueDate = document.getElementById('task-date').value;
-const priority = document.querySelector('input[name="priority"]:checked').value;
-const newTask = {
-id: Date.now().toString(),
-title: title,
-description: description,
-dueDate: dueDate,
-priority: priority,
-status: 'pending'}; // Read current tasks, append new one, and save const tasks = JSON.parse(localStorage.getItem('tasks') || '[]'); tasks.push(newTask); localStorage.setItem('tasks', JSON.stringify(tasks)); // Visual feedback and redirection alert('Task added successfully!'); window.location.href = 'task-list.html';
-}); </script>
-</body> </html>
+                </div>
+                <!-- Due Date -->
+                <div class="form-group">
+                    <label for="task-date">Due Date</label>
+                    <input type="date" id="task-date" required>
+                </div>
+                <!-- Priority (High/Medium/Low Visual Radio) -->
+                <div class="form-group">
+                    <label>Priority Level</label>
+                    <div class="priority-selector">
+                        <div class="priority-option">
+                            <input type="radio" name="priority" id="prio-high" value="high" required>
+                            <label for="prio-high" class="priority-label high">High</label>
+                        </div>
+                        <div class="priority-option">
+                            <input type="radio" name="priority" id="prio-medium" value="medium" checked>
+                            <label for="prio-medium" class="priority-label medium">Medium</label>
+                        </div>
+                        <div class="priority-option">
+                            <input type="radio" name="priority" id="prio-low" value="low">
+                            <label for="prio-low" class="priority-label low">Low</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Submit and Cancel Buttons -->
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                        <i data-lucide="save"></i> Save Task
+                    </button>
+                    <a href="index.html" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 TaskFlow DevOps Team. Built with Premium HTML/CSS/JS
+            containerized on Nginx.</p>
+    </footer>
+    <script>
+        lucide.createIcons();
+        // Set today's date as the minimum date
+        const dateInput = document.getElementById('task-date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        // Handle Form Submission
+        document.getElementById('add-task-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const title = document.getElementById('task-title').value.trim();
+            const description = document.getElementById('task-desc').value.trim();
+            const dueDate = document.getElementById('task-date').value;
+            const priority = document.querySelector('input[name="priority"]:checked').value;
+            const newTask = {
+                id: Date.now().toString(),
+                title: title,
+                description: description,
+                dueDate: dueDate,
+                priority: priority,
+                status: 'pending'
+            };
+
+            // Read current tasks, append new one, and save
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            // Visual feedback and redirection
+            alert('Task added successfully!');
+            window.location.href = 'task-list.html';
+        });
+    </script>
+</body>
+
+</html>
