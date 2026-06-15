@@ -100,8 +100,18 @@ criteria..." required></textarea>
                 dueDate: dueDate,
                 priority: priority,
                 status: 'pending'
-            }; // Read current tasks, append new one, and save const tasks = JSON.parse(localStorage.getItem('tasks') || '[]'); tasks.push(newTask); localStorage.setItem('tasks', JSON.stringify(tasks)); // Visual feedback and redirection alert('Task added successfully!'); window.location.href = 'task-list.html';
-        }); </script>
+            };
+
+            // Read current tasks, append new one, and save
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            // Visual feedback and redirection
+            alert('Task added successfully!');
+            window.location.href = 'task-list.html';
+        });
+    </script>
 </body>
 
 </html>
