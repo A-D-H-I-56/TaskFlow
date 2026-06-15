@@ -104,4 +104,39 @@
 
             <div class="meta-item">
               <span class="meta-label">Priority</span>
-              <
+              <div class="meta-value">
+                <span class="badge badge-${task.priority}" style="font-size: 0.9rem; padding: 0.35rem 1rem;">${task.priority}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function markComplete(taskId) {
+      const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      const taskIndex = tasks.findIndex(t => t.id === taskId);
+      if (taskIndex !== -1) {
+        tasks[taskIndex].status = 'completed';
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        alert('Task marked as completed!');
+        renderTaskDetails();
+      }
+    }
+
+    function deleteTask(taskId) {
+      if (confirm('Are you sure you want to delete this task?')) {
+        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        const filteredTasks = tasks.filter(t => t.id !== taskId);
+        localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+        alert('Task deleted successfully!');
+        window.location.href = 'task-list.html';
+      }
+    }
+
+    // Initial render
+    renderTaskDetails();
+  </script>
+</body>
+</html>
